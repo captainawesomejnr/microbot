@@ -1,7 +1,7 @@
 def DanceBot():
-    ZIP_LEDs.show_rainbow(1, 360)
+    ZIP_LEDs.show_rainbow(1, 300)
     for index in range(4):
-        if input.sound_level() < 128:
+        if input.sound_level() > 128:
             kitronik_servo_lite.stop()
             ZIP_LEDs.show_color(neopixel.colors(NeoPixelColors.RED))
             basic.pause(5000)
@@ -26,6 +26,8 @@ input.on_sound(DetectedSound.LOUD, on_sound_loud)
 
 ZIP_LEDs: neopixel.Strip = None
 kitronik_servo_lite.bias_driving(50)
+input.set_sound_threshold(SoundThreshold.LOUD, 200)
+music.set_built_in_speaker_enabled(True)
 ZIP_LEDs = neopixel.create(DigitalPin.P0, 5, NeoPixelMode.RGB)
 kitronik_servo_lite.set_distance_per_second(100)
 kitronik_servo_lite.set_degrees_per_second(90)
